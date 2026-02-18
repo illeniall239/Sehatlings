@@ -1,12 +1,9 @@
-import dynamic from "next/dynamic";
-
-// NEW REDESIGNED COMPONENTS
-const HeroSplit = dynamic(() => import("@/components/home/HeroSplit"), { ssr: true });
-const StatsCounter = dynamic(() => import("@/components/home/StatsCounter"), { ssr: true });
-const SolutionsStack = dynamic(() => import("@/components/home/SolutionsStack"), { ssr: true });
-const TelehealthFeature = dynamic(() => import("@/components/home/TelehealthFeature"), { ssr: true });
-const MuainaVital = dynamic(() => import("@/components/home/MuainaVital"), { ssr: true });
-const ImmersiveCTA = dynamic(() => import("@/components/home/ImmersiveCTA"), { ssr: true });
+import HeroSplit from "@/components/home/HeroSplit";
+import StatsCounter from "@/components/home/StatsCounter";
+import SolutionsStack from "@/components/home/SolutionsStack";
+import TelehealthFeature from "@/components/home/TelehealthFeature";
+import MuainaVital from "@/components/home/MuainaVital";
+import ImmersiveCTA from "@/components/home/ImmersiveCTA";
 
 export default function Home() {
   return (

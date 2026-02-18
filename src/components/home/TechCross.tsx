@@ -31,11 +31,12 @@ export default function TechCross() {
         <div className="relative w-full h-full flex items-center justify-center">
             <div className="relative w-[400px] h-[400px] flex items-center justify-center preserve-3d">
 
-                {/* Subtle glow - reduced blur */}
+                {/* Subtle glow - opacity-only animation for performance */}
                 <div
                     className="absolute inset-0 bg-gradient-radial from-maroon/20 to-transparent blur-xl"
                     style={{
                         animation: 'ambient-pulse 5s ease-in-out infinite',
+                        willChange: 'opacity',
                     }}
                 />
 

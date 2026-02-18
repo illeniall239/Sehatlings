@@ -7,13 +7,11 @@ class ScrollManager {
   private callbacks: Map<string, ScrollCallback> = new Map();
   private rafId: number | null = null;
   private lastScrollY = 0;
-  private currentScrollY = 0;
   private direction: 'up' | 'down' = 'down';
 
   private constructor() {
     if (typeof window !== 'undefined') {
       this.lastScrollY = window.scrollY;
-      this.currentScrollY = window.scrollY;
     }
   }
 
@@ -24,24 +22,27 @@ class ScrollManager {
     return ScrollManager.instance;
   }
 
+  // Event-driven: only schedule rAF when a scroll event fires
   private handleScroll = () => {
-    this.currentScrollY = window.scrollY;
+    if (this.rafId !== null) return; // already scheduled
+    this.rafId = requestAnimationFrame(this.processScroll);
   };
 
-  private tick = () => {
-    if (this.currentScrollY !== this.lastScrollY) {
-      this.direction = this.currentScrollY > this.lastScrollY ? 'down' : 'up';
+  private processScroll = () => {
+    this.rafId = null;
+
+    const currentScrollY = window.scrollY;
+    if (currentScrollY !== this.lastScrollY) {
+      this.direction = currentScrollY > this.lastScrollY ? 'down' : 'up';
 
       const scrollData = {
-        scrollY: this.currentScrollY,
+        scrollY: currentScrollY,
         direction: this.direction
       };
 
       this.callbacks.forEach(callback => callback(scrollData));
-      this.lastScrollY = this.currentScrollY;
+      this.lastScrollY = currentScrollY;
     }
-
-    this.rafId = requestAnimationFrame(this.tick);
   };
 
   subscribe(id: string, callback: ScrollCallback): () => void {
@@ -50,7 +51,6 @@ class ScrollManager {
 
     if (wasEmpty) {
       window.addEventListener('scroll', this.handleScroll, { passive: true });
-      this.rafId = requestAnimationFrame(this.tick);
     }
 
     return () => {

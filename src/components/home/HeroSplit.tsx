@@ -1,9 +1,8 @@
 "use client";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import TechCross from "./TechCross";
-import { useThrottledMouseMove } from "@/lib/useThrottledMouseMove";
 
 export default function HeroSplit() {
   // Disabled mouse interaction for better performance

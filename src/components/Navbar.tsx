@@ -59,7 +59,7 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <div className={`${isScrolled ? "bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-soft" : "bg-transparent border-transparent shadow-none"} transition-all duration-500`}>
+      <div className={`${isScrolled ? "bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-soft" : "bg-transparent border-transparent shadow-none"} transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500`}>
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-12 h-20 overflow-visible flex items-center gap-4 sm:gap-8 pointer-events-auto transition-all duration-300 ease-out relative">
         {/* Logo - Left */}
         {/* Mobile Hamburger (left) */}

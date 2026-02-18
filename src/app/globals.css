@@ -806,12 +806,10 @@
   0%,
   100% {
     opacity: 0.3;
-    transform: scale(0.9);
   }
 
   50% {
     opacity: 0.5;
-    transform: scale(1.1);
   }
 }
 
@@ -842,12 +840,10 @@
 
 .animate-blob-float-1 {
   animation: blob-float-1 8s ease-in-out infinite;
-  will-change: transform;
 }
 
 .animate-blob-float-2 {
   animation: blob-float-2 10s ease-in-out infinite 1s;
-  will-change: transform;
 }
 
 /* Scroll indicator bounce */
@@ -902,12 +898,10 @@
 
 .animate-orb-float-1 {
   animation: orb-float-1 20s ease-in-out infinite;
-  will-change: transform;
 }
 
 .animate-orb-float-2 {
   animation: orb-float-2 25s ease-in-out infinite 2s;
-  will-change: transform;
 }
 
 /* Mobile blur reduction for better performance */
@@ -918,6 +912,14 @@
 
   .blur-3xl {
     --tw-blur: blur(32px);
+  }
+
+  .backdrop-blur-xl {
+    --tw-backdrop-blur: blur(12px);
+  }
+
+  .backdrop-blur-md {
+    --tw-backdrop-blur: blur(8px);
   }
 }
 

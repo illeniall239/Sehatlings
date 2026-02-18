@@ -48,11 +48,12 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
     }, [isInView, value, motionValue]);
 
     useEffect(() => {
-        springValue.on("change", (latest) => {
+        const unsubscribe = springValue.on("change", (latest) => {
             if (ref.current) {
                 ref.current.textContent = Math.floor(latest).toString() + suffix;
             }
         });
+        return unsubscribe;
     }, [springValue, suffix]);
 
     return <span ref={ref} className="font-serif text-4xl md:text-5xl font-bold text-cream" />;

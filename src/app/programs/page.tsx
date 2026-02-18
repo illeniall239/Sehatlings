@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Brain, Crown, Rocket, Clock, X, User, Mail, Phone, Building, Lightbulb, Star, Check } from "lucide-react";
+import { ArrowRight, Brain, Crown, Rocket, Clock, X, User, Mail, Phone, Building, Lightbulb, Star, Check, Calendar } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -14,10 +14,11 @@ export default function ProgramsPage() {
   useScrollAnimation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBootcampModalOpen, setIsBootcampModalOpen] = useState(false);
+  const [isCohort2ModalOpen, setIsCohort2ModalOpen] = useState(false);
 
   // Prevent background scroll when modal is open
   useEffect(() => {
-    if (isModalOpen || isBootcampModalOpen) {
+    if (isModalOpen || isBootcampModalOpen || isCohort2ModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -26,7 +27,7 @@ export default function ProgramsPage() {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isModalOpen, isBootcampModalOpen]);
+  }, [isModalOpen, isBootcampModalOpen, isCohort2ModalOpen]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -145,7 +146,10 @@ export default function ProgramsPage() {
                 <Crown className="w-8 h-8 text-maroon" />
               </div>
               <h3 className="font-serif text-2xl text-charcoal mb-2">Healthcare Leadership Bootcamp</h3>
-              <p className="font-sans font-medium text-maroon mb-6">The 48 Hour Leadership Sprint</p>
+              <p className="font-sans font-medium text-maroon mb-2">The 48 Hour Leadership Sprint</p>
+              <span className="inline-block px-3 py-1 bg-maroon/10 text-maroon text-xs rounded-full font-semibold uppercase tracking-wider mb-6">
+                Cohort 2
+              </span>
 
               <div className="flex items-center justify-center gap-3 text-sm text-gray-600 mb-8">
                 <Clock className="w-4 h-4 text-maroon" />
@@ -154,10 +158,10 @@ export default function ProgramsPage() {
 
               <div className="mt-auto">
                 <Button
-                  disabled
-                  className="bg-gray-200 text-gray-500 hover:bg-gray-200 cursor-not-allowed rounded-full px-6"
+                  onClick={() => setIsCohort2ModalOpen(true)}
+                  className="bg-maroon hover:bg-maroon-dark text-cream rounded-full px-6"
                 >
-                  Registrations Closed
+                  Registrations Open
                 </Button>
               </div>
             </div>
@@ -516,6 +520,122 @@ export default function ProgramsPage() {
                 </Button>
               </div>
             </form>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Cohort 2 Workshop Details Modal */}
+      {isCohort2ModalOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-[10000] p-0 sm:p-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.98 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl max-w-3xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
+          >
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-white z-10 px-5 sm:px-8 pt-6 sm:pt-10 pb-4 sm:pb-6 border-b border-gray-100 relative text-center">
+              {/* Drag indicator for mobile */}
+              <div className="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-4 sm:hidden" />
+              <button
+                onClick={() => setIsCohort2ModalOpen(false)}
+                className="absolute top-4 sm:top-6 right-4 sm:right-6 p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-400 hover:text-charcoal"
+              >
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-maroon mb-1 sm:mb-2 pr-8 sm:pr-0">
+                Workshop Details
+              </h2>
+              <p className="text-sm sm:text-lg text-charcoal/80 font-medium">
+                The 48-Hour Leadership Sprint &mdash; Cohort 2
+              </p>
+            </div>
+
+            {/* Modal Body */}
+            <div className="px-5 sm:px-8 py-5 sm:py-8 space-y-5 sm:space-y-8">
+              {/* What is it about */}
+              <div className="space-y-2 sm:space-y-3">
+                <h3 className="font-serif text-xl sm:text-2xl text-charcoal">
+                  What is it about?
+                </h3>
+                <div className="space-y-4 bg-cream p-4 sm:p-6 rounded-xl border border-gray-100">
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                    The bootcamp specifically addresses the <span className="font-semibold text-maroon">&quot;BAD Framework&quot;</span> &mdash; <span className="font-semibold">Blame, Accuse, and Demand</span> &mdash; prevalent in traditional healthcare settings. Participants learn collaborative leadership approaches that foster trust, open communication, and shared problem-solving to create more effective and supportive healthcare environments.
+                  </p>
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-2">
+                    <div className="bg-white rounded-lg p-2.5 sm:p-4 border border-gray-100 text-center">
+                      <p className="text-xs sm:text-sm text-gray-500 line-through mb-1">Blame</p>
+                      <p className="font-semibold text-maroon text-xs sm:text-sm">Accountability &amp; Support</p>
+                    </div>
+                    <div className="bg-white rounded-lg p-2.5 sm:p-4 border border-gray-100 text-center">
+                      <p className="text-xs sm:text-sm text-gray-500 line-through mb-1">Accuse</p>
+                      <p className="font-semibold text-maroon text-xs sm:text-sm">Trust &amp; Understanding</p>
+                    </div>
+                    <div className="bg-white rounded-lg p-2.5 sm:p-4 border border-gray-100 text-center">
+                      <p className="text-xs sm:text-sm text-gray-500 line-through mb-1">Demand</p>
+                      <p className="font-semibold text-maroon text-xs sm:text-sm">Collaboration &amp; Dialogue</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Day 1 Section */}
+              <div className="space-y-2 sm:space-y-3">
+                <h3 className="font-serif text-xl sm:text-2xl text-charcoal">
+                  Day 1: The Applied Leadership Lab
+                </h3>
+                <div className="bg-cream p-4 sm:p-6 rounded-xl border border-gray-100">
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                    Led by <span className="font-semibold text-maroon">Dr. Azeem Qureshi</span> from Institute of Business Management (IoBM), participants engage in intensive strategic thinking sessions. The day culminates in an engaging <span className="font-semibold">LEGO Activity</span> that demonstrates collaborative problem-solving and innovative thinking in action.
+                  </p>
+                </div>
+              </div>
+
+              {/* Day 2 Section */}
+              <div className="space-y-2 sm:space-y-3">
+                <h3 className="font-serif text-xl sm:text-2xl text-charcoal">
+                  Day 2: The Systematic Change Lab
+                </h3>
+                <div className="bg-cream p-4 sm:p-6 rounded-xl border border-gray-100">
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                    Features an expert panel from Aga Khan University Hospital including <span className="font-semibold text-maroon">Prof. Dr. Ahmed Nadeem Abbasi</span> and <span className="font-semibold text-maroon">Dr. Maria Tariq</span>, who share invaluable insights on healthcare leadership, clinical excellence, and building collaborative healthcare environments.
+                  </p>
+                </div>
+              </div>
+
+              {/* Event Details */}
+              <div className="bg-gray-50 rounded-xl p-4 sm:p-6">
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-charcoal mb-3">Event Details</h3>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm">
+                  <p className="text-gray-700 flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-maroon shrink-0" />
+                    <span><span className="font-semibold text-maroon">Date:</span> 25th &ndash; 26th March</span>
+                  </p>
+                  <p className="text-gray-700 flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-maroon shrink-0" />
+                    <span><span className="font-semibold text-maroon">Timings:</span> 1:30 PM &ndash; 6:00 PM</span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Register Button */}
+              <div className="pt-2 sm:pt-4 pb-2 sm:pb-0 text-center">
+                <Button
+                  asChild
+                  className="bg-maroon hover:bg-maroon-dark text-cream w-full sm:w-auto px-8 sm:px-12 py-5 sm:py-6 text-base sm:text-lg rounded-full"
+                >
+                  <a
+                    href="https://forms.gle/bQW3Ws7RRCWJsnCe7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Register Now
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </a>
+                </Button>
+              </div>
+            </div>
           </motion.div>
         </div>
       )}
