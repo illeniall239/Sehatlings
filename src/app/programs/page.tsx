@@ -535,7 +535,7 @@ export default function ProgramsPage() {
             className="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl max-w-3xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
           >
             {/* Modal Header */}
-            <div className="sticky top-0 bg-white z-10 px-5 sm:px-8 pt-6 sm:pt-10 pb-4 sm:pb-6 border-b border-gray-100 relative text-center">
+            <div className="px-5 sm:px-8 pt-6 sm:pt-10 pb-4 sm:pb-6 border-b border-gray-100 relative text-center">
               {/* Drag indicator for mobile */}
               <div className="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-4 sm:hidden" />
               <button
